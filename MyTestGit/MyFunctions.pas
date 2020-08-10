@@ -340,8 +340,15 @@ type
   end;
 
 procedure DelRow(SG: TStringGrid; idx: integer);
+var i, j: Integer;
 begin
-  TMyGreed(SG).DeleteRow(idx);
+  if SG.RowCount <> SG.FixedRows+1 then
+    TMyGreed(SG).DeleteRow(idx)
+  else
+  begin
+    SG.Rows[1].clear;
+    TMyGreed(SG).FixedRows:=1;
+  end;
 end;
 
 // Фильтр по User
@@ -361,11 +368,12 @@ procedure SortedWithDate(Grid:TADVStringGrid;DateAfter,DatePrev:TDateTime);
 var
 i:integer;
 begin
- for i := Grid.RowCount - 1 downto Grid.FixedRows do
-   begin
-     if not ((StrToDateTime(Grid.Cells[1,i]) > DateAfter) and (StrToDateTime(Grid.Cells[1,i]) < DatePrev)) then
-       DelRow(Grid,i);
-   end;
+   for i := Grid.RowCount - 1 downto Grid.FixedRows do
+     begin
+       if Grid.Cells[1,i]<>'' then
+         if not ((StrToDateTime(Grid.Cells[1,i]) >= DateAfter) and (StrToDateTime(Grid.Cells[1,i]) <= DatePrev)) then
+           DelRow(Grid,i);
+     end;
 end;
 
 end.

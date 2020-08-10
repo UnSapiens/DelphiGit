@@ -329,8 +329,8 @@ begin
   else
     ShowAllReceptions(ADVSgReception,ListReception,ListPatient,ListUsers);
 
-  DateTimePickerAfter.MaxDate := DateTimePickerPrev.Date;
-  DateTimePickerPrev.MinDate := DateTimePickerAfter.Date;
+  DateTimePickerAfter.MaxDate := Trunc(DateTimePickerPrev.Date);
+  DateTimePickerPrev.MinDate := Trunc(DateTimePickerAfter.Date) + 1;
   SortedWithDate(ADVSgReception,DateTimePickerAfter.Date,DateTimePickerPrev.Date);
 end;
 

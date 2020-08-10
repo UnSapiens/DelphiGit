@@ -150,7 +150,7 @@ object fmMain: TfmMain
         149
         140
         119
-        122)
+        40)
       RowHeights = (
         22
         22
